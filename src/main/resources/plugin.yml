@@ -1,0 +1,31 @@
+name: SmartSort
+version: 1.0.0
+main: com.Alakaii.smartsort.SmartSortPlugin
+author: Alakaii
+description: Smart inventory and chest sorting plugin with shift+right-click functionality
+website: https://github.com/Alakaii/SmartSort
+api-version: 1.21
+
+commands:
+  smartsort:
+    description: Main SmartSort command
+    usage: /smartsort [reload|help]
+    permission: smartsort.use
+    aliases: [ss, ssort]
+
+permissions:
+  smartsort.use:
+    description: Allows player to use SmartSort functionality
+    default: false
+  smartsort.admin:
+    description: Admin commands including reload
+    default: op
+  smartsort.*:
+    description: All SmartSort permissions
+    default: op
+    children:
+      smartsort.use: true
+      smartsort.admin: true
+
+depend: []
+softdepend: [WorldGuard, LWC, Towny, GriefPrevention, Residence]
