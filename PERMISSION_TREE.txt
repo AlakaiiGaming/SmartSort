@@ -1,0 +1,184 @@
+# SmartSort v1.1.0 - Permission Tree Diagram
+
+```
+SmartSort Permission Hierarchy
+═══════════════════════════════════════════════════════════════
+
+                         smartsort.*
+                              │
+                    ┌─────────┴─────────┐
+                    │                   │
+              smartsort.use        smartsort.admin
+              (legacy - all)       (reload cmd)
+                    │
+        ┌───────────┴───────────┐
+        │                       │
+  smartsort.inventory.sort   smartsort.containers.sort
+  (player inventory)         (all containers)
+        │                       │
+        │           ┌───────────┴───────────┬───────────┬───────────┐
+        │           │                       │           │           │
+        │    .containers.chest       .containers   .containers .containers
+        │    (chests & trapped)      .barrel      .shulkerbox .enderchest
+        │           │                   │               │           │
+        │           │                   │               │           │
+        │    .containers.hopper  .containers    .containers
+        │    (hoppers)           .dispenser    .dropper
+        │                        (dispensers)  (droppers)
+        │
+        └─────────────────────────────────────────────────────────┘
+                                 │
+                    Player can sort based on
+                    permissions they have
+
+
+Legend:
+═══════════════════════════════════════════════════════════════
+⚡ smartsort.*          → Grants ALL permissions
+🔑 smartsort.use        → Grants ALL sorting (backward compatible)
+👤 .inventory.sort      → Player's own inventory
+📦 .containers.sort     → ALL container types
+📋 .containers.<type>   → Specific container type
+🛠️  smartsort.admin      → Admin commands only
+
+
+Permission Check Flow:
+═══════════════════════════════════════════════════════════════
+
+   Player Shift+Right-Clicks Empty Slot
+                │
+                ▼
+        ┌───────────────┐
+        │ Is it player  │
+        │  inventory?   │
+        └───────┬───────┘
+                │
+        ┌───────┴───────┐
+        │               │
+       YES             NO (Container)
+        │               │
+        ▼               ▼
+   ┌─────────┐     ┌─────────┐
+   │ Check:  │     │ Check:  │
+   ├─────────┤     ├─────────┤
+   │ 1. use  │     │ 1. use  │
+   │ 2. inv  │     │ 2. .sort│
+   │    .sort│     │ 3. .<typ│
+   └────┬────┘     └────┬────┘
+        │               │
+        ▼               ▼
+   ┌─────────┐     ┌─────────┐
+   │  Allow  │     │  Allow  │
+   │  Sorting│     │  Sorting│
+   └─────────┘     └─────────┘
+
+
+Example Permission Setups:
+═══════════════════════════════════════════════════════════════
+
+Setup A: Beginner (Free Player)
+├── smartsort.inventory.sort ✅
+└── Result: Can sort own inventory only
+
+Setup B: Member
+├── smartsort.inventory.sort ✅
+├── smartsort.containers.chest ✅
+└── smartsort.containers.barrel ✅
+└── Result: Can sort inventory, chests, and barrels
+
+Setup C: VIP/Donor
+├── smartsort.inventory.sort ✅
+└── smartsort.containers.sort ✅
+└── Result: Can sort inventory and ALL containers
+
+Setup D: Legacy (Backward Compatible)
+└── smartsort.use ✅
+└── Result: Can sort EVERYTHING (works like v1.0.0)
+
+Setup E: Admin/Staff
+└── smartsort.* ✅
+└── Result: ALL permissions including reload
+
+
+Container Type Reference:
+═══════════════════════════════════════════════════════════════
+
+Permission Node              → What It Controls
+─────────────────────────────────────────────────────────────
+.containers.chest            → 📦 Chests, Trapped Chests
+.containers.barrel           → 🛢️ Barrels
+.containers.shulkerbox       → 📦 Shulker Boxes (all colors)
+.containers.enderchest       → 🌀 Ender Chests
+.containers.hopper           → ⬇️ Hoppers
+.containers.dispenser        → 🔫 Dispensers
+.containers.dropper          → 💧 Droppers
+
+
+Quick Commands:
+═══════════════════════════════════════════════════════════════
+
+Give Inventory Permission:
+/lp user <name> permission set smartsort.inventory.sort true
+
+Give All Containers:
+/lp user <name> permission set smartsort.containers.sort true
+
+Give Specific Container:
+/lp user <name> permission set smartsort.containers.chest true
+
+Give Everything (Legacy):
+/lp user <name> permission set smartsort.use true
+
+Check Permission:
+/lp user <name> permission check smartsort.containers.chest
+
+List All Permissions:
+/lp user <name> permission list
+
+
+Priority System:
+═══════════════════════════════════════════════════════════════
+
+Priority 1: smartsort.use
+           └─ If player has this, skip all other checks
+              Result: Allow everything
+
+Priority 2: smartsort.containers.sort
+           └─ For containers, if player has this
+              Result: Allow all container types
+
+Priority 3: smartsort.containers.<type>
+           └─ Check specific container permission
+              Result: Allow this container type only
+
+Priority 4: smartsort.inventory.sort
+           └─ For inventory, check this permission
+              Result: Allow inventory sorting only
+
+
+Migration Path (v1.0.0 → v1.1.0):
+═══════════════════════════════════════════════════════════════
+
+Current Setup (v1.0.0):
+└── Everyone has: smartsort.use
+
+After Upgrade (Options):
+
+Option 1: Keep Same (No Changes)
+└── Keep: smartsort.use
+└── Result: Everything works exactly the same
+
+Option 2: Implement Granular (Recommended)
+├── Default: smartsort.inventory.sort
+├── Member: + smartsort.containers.chest
+├── VIP: smartsort.containers.sort
+└── Admin: smartsort.*
+
+Option 3: Progressive Unlock
+├── Rank 1: inventory.sort
+├── Rank 2: + .containers.chest
+├── Rank 3: + .containers.barrel
+├── Rank 4: + .containers.shulkerbox
+├── Rank 5: .containers.sort
+└── Staff: smartsort.*
+```

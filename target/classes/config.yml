@@ -1,0 +1,96 @@
+# SmartSort Configuration
+# Plugin by Alakaii
+# Version 1.1.0
+
+# General Settings
+verbose: false
+check-for-updates: false
+
+# Permission Settings
+# SmartSort supports granular permissions for better control:
+# - smartsort.use (legacy permission, grants all sorting access)
+# - smartsort.containers.sort (allows sorting all container types)
+# - smartsort.inventory.sort (allows sorting player inventory only)
+# - smartsort.containers.chest (specific: chests and trapped chests)
+# - smartsort.containers.barrel (specific: barrels)
+# - smartsort.containers.shulkerbox (specific: shulker boxes)
+# - smartsort.containers.enderchest (specific: ender chests)
+# - smartsort.containers.hopper (specific: hoppers)
+# - smartsort.containers.dispenser (specific: dispensers)
+# - smartsort.containers.dropper (specific: droppers)
+#
+# If no specific permissions are set, the plugin falls back to smartsort.use
+use-permissions: true
+
+# Sorting Behavior
+# SmartSort only activates with Shift+Right-Click on empty slots in chests or player inventory
+# This prevents accidental sorting and gives players full control
+# 
+# PLAYER INVENTORY SORTING:
+# - Clicking in the HOTBAR (bottom row, slots 1-9) sorts ONLY the hotbar
+# - Clicking in the MAIN INVENTORY (upper 3 rows) sorts ONLY the main inventory
+# - The hotbar and main inventory are ALWAYS sorted separately
+
+# Performance Settings
+# Sorting is limited to prevent server lag
+max-sorting-operations-per-second: 10
+
+# Disabled Worlds
+# List worlds where SmartSort should not work
+# Example:
+# disabled-worlds:
+#   - creative_world
+#   - minigame_arena
+disabled-worlds: []
+
+# Container Types
+# Define which container types can be sorted
+allowed-containers:
+  - CHEST
+  - TRAPPED_CHEST
+  - BARREL
+  - SHULKER_BOX
+  - ENDER_CHEST
+  - HOPPER
+  - DROPPER
+  - DISPENSER
+
+# Sorting Rules
+sorting:
+  # Stack similar items together before sorting
+  stack-items: true
+  
+  # Sort alphabetically within categories
+  alphabetical: true
+  
+  # Category priority (items will be sorted in this order)
+  category-order:
+    - weapons
+    - tools
+    - armor
+    - food
+    - blocks
+    - items
+    - misc
+
+# Protection Plugin Integration
+# SmartSort will respect protection plugins and only sort containers
+# that the player has permission to access
+protection-integration:
+  enabled: true
+  check-container-access: true
+
+# Messages
+messages:
+  no-permission: "&cYou don't have permission to use SmartSort!"
+  no-permission-container: "&cYou don't have permission to sort this container type!"
+  no-permission-inventory: "&cYou don't have permission to sort your inventory!"
+  sorting-disabled-world: "&cSorting is disabled in this world!"
+  sorted-successfully: "&aInventory sorted successfully!"
+  sorting-failed: "&cFailed to sort inventory!"
+  plugin-reloaded: "&aSmartSort configuration reloaded!"
+  help-header: "&6=== SmartSort Help ==="
+  help-usage: "&eTo sort: &fShift+Right-Click on an empty slot"
+  help-permission: "&ePermissions: &fsmartsort.use (all) or specific permissions"
+  help-permissions-list: "&eGranular permissions: &fcontainers.sort, inventory.sort, containers.<type>"
+  help-commands: "&eCommands: &f/smartsort [reload|help]"
