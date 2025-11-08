@@ -6,16 +6,11 @@
 - ✅ Spigot, Paper, Purpur, and other Bukkit forks
 - ✅ Java 8 or higher (Java 17 recommended)
 
-## What's New in v1.1.0
+What's New in v1.1.0
 
 This update adds **granular permission support** while maintaining full backward compatibility with v1.0.0.
 
-### New Features
-
-#### Separate Hotbar and Main Inventory Sorting
-- **Hotbar sorting** - Shift+Right-Click an empty slot in your hotbar (bottom row) to sort ONLY the hotbar
-- **Main inventory sorting** - Shift+Right-Click an empty slot in your main inventory (upper 3 rows) to sort ONLY those 27 slots
-- The hotbar and main inventory are **always sorted separately** for maximum control
+New Features
 
 #### Granular Permission System
 Players can now be given specific permissions for different types of sorting:
