@@ -1,8 +1,0 @@
-com\Alakaii\smartsort\utils\ConfigManager.class
-com\Alakaii\smartsort\utils\MessageUtil.class
-com\Alakaii\smartsort\listeners\InventoryListener$1.class
-com\Alakaii\smartsort\commands\SmartSortCommand.class
-com\Alakaii\smartsort\sorting\ItemCategorizer.class
-com\Alakaii\smartsort\listeners\InventoryListener.class
-com\Alakaii\smartsort\SmartSortPlugin.class
-com\Alakaii\smartsort\sorting\SortingManager.class
