@@ -1,9 +1,30 @@
-# SmartSort v1.2.1 - Bug Fixes & New Commands
+# SmartSort v2.0.0 - Minecraft 26.2 Update
 
 ## Compatibility
-* ✅ Minecraft Java Edition 1.21.x (tested on 1.21.10 - 1.21.11)
-* ✅ Spigot, Paper, Purpur, and other Bukkit forks
-* ✅ Java 8 or higher (Java 17 recommended)
+* ✅ Minecraft Java Edition 26.2 (Paper API 26.2)
+* ✅ Paper, Purpur, and other Paper forks
+* ✅ Java 25 (required by Minecraft 26.x servers)
+* ⚠️ For Minecraft 1.21.x servers, use SmartSort 1.2.1
+
+## What's New in v2.0.0
+
+### Updated
+* Rebuilt for Minecraft 26.2 on the Paper API with Java 25
+* Modern chat (Adventure) for messages and update notices
+* Tab completion for `/smartsort`
+* New items sorted into the right groups automatically (spears, maces, wind charges, copper gear, horse/wolf armor and more)
+* Update checker only reports newer versions built for your server's Minecraft version
+
+### Fixes
+* Sorting is limited to real storage: chests, barrels, shulker boxes, ender chests, hoppers, droppers and dispensers. Furnaces, anvils, brewing stands, horse inventories and other plugins' menus (CMI, shops, GUIs) are never touched
+* `allowed-containers` in the config now actually works
+* Identical items always stack together and different items never merge (enchantments, names and custom data are respected)
+* Items can no longer be lost while sorting; if anything goes wrong the inventory is put back exactly as it was
+* Clicking an empty armor, offhand or crafting slot no longer sorts anything
+* `max-sorting-operations-per-second` now limits sort spam per player
+* `use-permissions: false` now lets everyone sort
+* `/smartsort inv` and `/smartsort hotbar` work for players with only `smartsort.inventory.sort`
+* New `nothing-to-sort` and `players-only` messages (added to old configs automatically)
 
 ## What's New in v1.2.1
 
@@ -124,8 +145,8 @@ Customizable message keys in `config.yml`:
 ## Building the Plugin
 
 ### Requirements
-* Java 8 or higher
-* Maven 3.6 or higher
+* Java 25 (JDK)
+* Maven 3.9 or higher
 * Internet connection (for downloading dependencies)
 
 ### Build Command
@@ -135,9 +156,18 @@ mvn clean package
 
 The compiled JAR will be in the `target` folder.
 
+### Building on GitHub
+Every push runs the **Build SmartSort** workflow (Actions tab). Open the finished run and download **SmartSort-jar** at the bottom of the page.
+
 ---
 
 ## Changelog
+
+### v2.0.0
+* Updated to Minecraft 26.2 / Paper API / Java 25
+* Container safety: only real storage containers can be sorted
+* Safer stacking and no-item-loss guarantee
+* Spam protection, tab completion, Adventure messages
 
 ### v1.2.1
 * Fixed items randomly rearranging with each sort
@@ -158,6 +188,6 @@ The compiled JAR will be in the `target` folder.
 * Initial release
 * Shift+right-click sorting
 * Category-based organization
-- Java 8 or higher
-- Maven 3.6 or higher
+- Java 25 (JDK)
+- Maven 3.9 or higher
 - Internet connection (for downloading dependencies)
