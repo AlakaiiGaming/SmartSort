@@ -120,6 +120,16 @@ public class UpdateChecker {
         if (!updateAvailable || !player.hasPermission("smartsort.admin")) {
             return;
         }
+        try {
+            sendFancyNotice(player);
+        } catch (Throwable error) {
+            // Plain-text fallback so an update notice can never break anything
+            player.sendMessage("[SmartSort] A new version is available (v" + currentVersion + " -> v"
+                    + latestVersion + "): " + MODRINTH_URL);
+        }
+    }
+
+    private void sendFancyNotice(Player player) {
         Component prefix = Component.text("[SmartSort] ", NamedTextColor.YELLOW, TextDecoration.BOLD);
 
         player.sendMessage(prefix.append(Component.text("A new version is available! ", NamedTextColor.GREEN)
